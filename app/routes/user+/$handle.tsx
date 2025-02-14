@@ -52,7 +52,7 @@ export default function Threads() {
     return (
       <Main>
         <Profile profile={profile.data} />
-        <div className="flex space-x-2 mb-6">
+        <div className="flex space-x-2 mb-6 overflow-scroll">
           {tabs.map(({ path, label }) => (
             <a
               key={path}

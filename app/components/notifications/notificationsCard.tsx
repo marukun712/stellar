@@ -52,7 +52,7 @@ export default function NotificationCard({
           <Avatar className="h-10 w-10">
             <AvatarImage src={notification.author.avatar} />
             <AvatarFallback>
-              {notification.author.handle.slice(0, 2).toUpperCase()}
+              {notification.author.displayName?.[0]?.toUpperCase() || "?"}
             </AvatarFallback>
           </Avatar>
         </a>

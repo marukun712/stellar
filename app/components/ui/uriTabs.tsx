@@ -15,7 +15,7 @@ export default function UriTabs({
 }) {
   const location = useLocation();
   return (
-    <div className="flex space-x-2 mb-6">
+    <div className="flex space-x-2 mb-6 overflow-scroll">
       {tabs.map(({ path, label, icon: Icon }) => (
         <a
           key={path}
