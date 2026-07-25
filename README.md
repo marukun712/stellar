@@ -1,10 +1,9 @@
 # Stellar
 
----
-
 ## 概要
 
 Stellarは、Blueskyの投稿に対して絵文字リアクションを付けるための、シンプルなLexicon・仕様群です。
+
 Blueskyの投稿に対して簡易的にリアクションを付けることを目的としています。
 
 サンプル絵文字サーバーを提供しています。Server SettingsからこちらのURLを指定することで、[decomoji](https://github.com/decomoji/decomoji)が使えます。
