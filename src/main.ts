@@ -34,7 +34,7 @@ configureOAuth({
 const app = document.getElementById("app");
 if (!app) throw new Error("missing #app");
 
-async function init() {
+async function init(app: HTMLElement) {
 	if (location.hash.includes("state=")) {
 		const params = new URLSearchParams(location.hash.slice(1));
 		history.replaceState(null, "", location.pathname + location.search);
@@ -51,7 +51,7 @@ async function init() {
 	app.replaceChildren(document.createElement("login-form"));
 }
 
-init().catch((err) => {
+init(app).catch((err) => {
 	const p = document.createElement("p");
 	p.textContent = String(err);
 	app.append(p);
