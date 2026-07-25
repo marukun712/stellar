@@ -1,4 +1,3 @@
-// https://github.com/mary-ext/atcute/blob/trunk/packages/oauth/browser-client/README.md
 import {
 	CompositeDidDocumentResolver,
 	LocalActorResolver,

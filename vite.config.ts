@@ -1,4 +1,3 @@
-// https://github.com/mary-ext/atcute/blob/trunk/packages/oauth/browser-client/README.md#local-development-with-vite
 import { defineConfig } from "vite";
 import metadata from "./public/oauth-client-metadata.json" with {
 	type: "json",
