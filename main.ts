@@ -8,9 +8,8 @@ for await (const entry of Deno.readDir("public/emoji")) {
 	}
 }
 
-await Deno.mkdir("public/.well-known", { recursive: true });
 await Deno.writeTextFile(
-	"public/.well-known/emojis.json",
+	"public/emojis.json",
 	JSON.stringify({ emojis }, null, 2),
 );
 
