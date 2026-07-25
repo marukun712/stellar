@@ -7,6 +7,7 @@ const SERVER_HOST = "127.0.0.1";
 const SERVER_PORT = 5173;
 
 export default defineConfig({
+	base: "/stellar/",
 	server: { host: SERVER_HOST, port: SERVER_PORT },
 	plugins: [
 		{
