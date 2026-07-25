@@ -1,0 +1,21 @@
+{
+	"lexicon": 1,
+	"id": "blue.maril.stellar.servers",
+	"defs": {
+		"main": {
+			"type": "record",
+			"description": "A list of emoji servers permitted by the poster.",
+			"key": "tid",
+			"record": {
+				"type": "object",
+				"required": ["url"],
+				"properties": {
+					"url": {
+						"type": "array",
+						"items": { "type": "string", "format": "uri" }
+					}
+				}
+			}
+		}
+	}
+}

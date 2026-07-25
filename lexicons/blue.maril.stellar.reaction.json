@@ -1,0 +1,21 @@
+{
+	"lexicon": 1,
+	"id": "blue.maril.stellar.reaction",
+	"defs": {
+		"main": {
+			"type": "record",
+			"description": "A lexicon for representing Stellar emoji reactions.",
+			"key": "tid",
+			"record": {
+				"type": "object",
+				"required": ["subject", "createdAt", "emoji"],
+				"properties": {
+					"subject": { "type": "ref", "ref": "com.atproto.repo.strongRef" },
+					"createdAt": { "type": "string", "format": "datetime" },
+					"emoji": { "type": "string", "format": "uri" },
+					"via": { "type": "ref", "ref": "com.atproto.repo.strongRef" }
+				}
+			}
+		}
+	}
+}
