@@ -1,8 +1,8 @@
 {
-	"client_id": "https://example.com/oauth-client-metadata.json",
+	"client_id": "https://marukun712.github.io/stellar/oauth-client-metadata.json",
 	"client_name": "stellar",
-	"client_uri": "https://example.com",
-	"redirect_uris": ["https://example.com/"],
+	"client_uri": "https://marukun712.github.io/stellar",
+	"redirect_uris": ["https://marukun712.github.io/stellar/"],
 	"scope": "atproto transition:generic",
 	"grant_types": ["authorization_code", "refresh_token"],
 	"response_types": ["code"],
