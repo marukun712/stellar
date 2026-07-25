@@ -1,60 +1,59 @@
-import "./style.css";
-import heroImg from "./assets/hero.png";
-import typescriptLogo from "./assets/typescript.svg";
-import viteLogo from "./assets/vite.svg";
-import { setupCounter } from "./counter.ts";
+// https://github.com/mary-ext/atcute/blob/trunk/packages/oauth/browser-client/README.md
+import {
+	CompositeDidDocumentResolver,
+	LocalActorResolver,
+	PlcDidDocumentResolver,
+	WebDidDocumentResolver,
+	XrpcHandleResolver,
+} from "@atcute/identity-resolver";
+import {
+	configureOAuth,
+	finalizeAuthorization,
+	listStoredSessions,
+} from "@atcute/oauth-browser-client";
+import "./components/login-form.ts";
+import "./components/post-view.ts";
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+configureOAuth({
+	metadata: {
+		client_id: import.meta.env.VITE_OAUTH_CLIENT_ID,
+		redirect_uri: import.meta.env.VITE_OAUTH_REDIRECT_URI,
+	},
+	identityResolver: new LocalActorResolver({
+		handleResolver: new XrpcHandleResolver({
+			serviceUrl: "https://public.api.bsky.app",
+		}),
+		didDocumentResolver: new CompositeDidDocumentResolver({
+			methods: {
+				plc: new PlcDidDocumentResolver(),
+				web: new WebDidDocumentResolver(),
+			},
+		}),
+	}),
+});
 
-<div class="ticks"></div>
+const app = document.getElementById("app");
+if (!app) throw new Error("missing #app");
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+async function init() {
+	if (location.hash.includes("state=")) {
+		const params = new URLSearchParams(location.hash.slice(1));
+		history.replaceState(null, "", location.pathname + location.search);
+		await finalizeAuthorization(params);
+		app.replaceChildren(document.createElement("post-view"));
+		return;
+	}
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`;
+	if (listStoredSessions().length > 0) {
+		app.replaceChildren(document.createElement("post-view"));
+		return;
+	}
 
-setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
+	app.replaceChildren(document.createElement("login-form"));
+}
+
+init().catch((err) => {
+	const p = document.createElement("p");
+	p.textContent = String(err);
+	app.append(p);
+});

@@ -3,7 +3,12 @@
   "specifiers": {
     "jsr:@std/internal@^1.0.14": "1.0.14",
     "jsr:@std/path@^1.1.6": "1.1.6",
+    "npm:@atcute/bluesky-richtext-builder@^4.0.1": "4.0.1_@atcute+lexicons@2.0.3",
+    "npm:@atcute/bluesky-richtext-parser@^2.1.2": "2.1.2",
+    "npm:@atcute/identity-resolver@^2.0.1": "2.0.1_@atcute+identity@2.0.2__@atcute+lexicons@2.0.3__typescript@6.0.3_@atcute+lexicons@2.0.3_typescript@6.0.3",
     "npm:@atcute/lex-cli@^3.2.1": "3.2.1_@atcute+cbor@2.3.6__@atcute+cid@2.4.2_@atcute+cid@2.4.2_typescript@6.0.3",
+    "npm:@atcute/lexicons@^2.0.3": "2.0.3",
+    "npm:@atcute/oauth-browser-client@^4.0.1": "4.0.1_@atcute+identity-resolver@2.0.1__@atcute+identity@2.0.2___@atcute+lexicons@2.0.3___typescript@6.0.3__@atcute+lexicons@2.0.3__typescript@6.0.3_@atcute+lexicons@2.0.3_typescript@6.0.3",
     "npm:typescript@~6.0.2": "6.0.3",
     "npm:vite@^8.1.1": "8.1.5"
   },
@@ -19,6 +24,30 @@
     }
   },
   "npm": {
+    "@atcute/atproto@4.0.3_@atcute+lexicons@2.0.3": {
+      "integrity": "sha512-BNylfO7nK0yYBpSpnGhOYgrJTeZWrXHPrb6tOQmp9A3Am0epctIWm6/5lPC4ZNPHpUbwr5w/LzH/v7kjAoKEDg==",
+      "dependencies": [
+        "@atcute/lexicons"
+      ]
+    },
+    "@atcute/bluesky-richtext-builder@4.0.1_@atcute+lexicons@2.0.3": {
+      "integrity": "sha512-Ep6jJy5crrGxPFqQcbGToH1eIpvHrvS33bcp2K1DBQ+yBj9Ro5cvGx3Flq5AzRWHDbrgLft3lFYpDRwMiZulbQ==",
+      "dependencies": [
+        "@atcute/bluesky",
+        "@atcute/lexicons",
+        "@atcute/uint8array"
+      ]
+    },
+    "@atcute/bluesky-richtext-parser@2.1.2": {
+      "integrity": "sha512-Wt3rGAszLY7z1S1wx2j3SXIbMpij+kFdtx0ODp67csPZ4xThAQ53r7pdcTIOmMzfymV4/nFYnTLrzBi0XDpKJA=="
+    },
+    "@atcute/bluesky@4.0.15_@atcute+lexicons@2.0.3": {
+      "integrity": "sha512-+pYJihR5/0NF8kbPy2Sz3SjXExPXxNj8MakdIxcMtYS4qi2eSCU8UWMSp3rcBaP9pypURda0q/Q8TrDZNpvucg==",
+      "dependencies": [
+        "@atcute/atproto",
+        "@atcute/lexicons"
+      ]
+    },
     "@atcute/car@6.0.2_@atcute+cbor@2.3.6__@atcute+cid@2.4.2_@atcute+cid@2.4.2": {
       "integrity": "sha512-6AaLjO0zrFD8R/aK7jwrqHEmLzfVilu/5pv4LAcUjxIYfBrw+nThV2FVLPtA4Jt59tIhjp5tQDP+9sx1eqQp+A==",
       "dependencies": [
@@ -41,6 +70,13 @@
       "dependencies": [
         "@atcute/multibase",
         "@atcute/uint8array"
+      ]
+    },
+    "@atcute/client@5.1.1_@atcute+lexicons@2.0.3_typescript@6.0.3": {
+      "integrity": "sha512-cn5/Zi/qo37WtQG6gzIC7JPs0RDzX9Z4eaceX45SpKgLZoc3fCFDJcE7C8xsbxBNfjry2T6PmUxWA8obebZsEQ==",
+      "dependencies": [
+        "@atcute/identity",
+        "@atcute/lexicons"
       ]
     },
     "@atcute/crypto@2.4.4": {
@@ -127,6 +163,42 @@
       "integrity": "sha512-cReTONgYpQo/VHD3ZmzPNoyBKJgSk1J4h//cvvdVVJBMar+SjlQ/sUXeTjQfuyfmDKv+TLKhmutLcvbMcQ9Rvw==",
       "dependencies": [
         "@atcute/uint8array"
+      ]
+    },
+    "@atcute/oauth-browser-client@4.0.1_@atcute+identity-resolver@2.0.1__@atcute+identity@2.0.2___@atcute+lexicons@2.0.3___typescript@6.0.3__@atcute+lexicons@2.0.3__typescript@6.0.3_@atcute+lexicons@2.0.3_typescript@6.0.3": {
+      "integrity": "sha512-k5GGDFWUqTifbi7bMk4LhwG12XWNJop9atZ3ocBpzHJvXboTqp7E2zaD/arhJWxHXp5+0A1R3EKXdHsVbWjHyA==",
+      "dependencies": [
+        "@atcute/client",
+        "@atcute/identity-resolver",
+        "@atcute/lexicons",
+        "@atcute/multibase",
+        "@atcute/oauth-crypto",
+        "@atcute/oauth-types",
+        "nanoid@5.1.16"
+      ]
+    },
+    "@atcute/oauth-crypto@1.0.1_typescript@6.0.3": {
+      "integrity": "sha512-ghC8ceFx0r6pi5X3dNoET1K6PNg8afeAOZLD4PKLhrpVYdRtRrgY4uqAe3ojtSIjoS6GXmVm063CoJ2xtg/MoQ==",
+      "dependencies": [
+        "@atcute/multibase",
+        "@atcute/uint8array",
+        "nanoid@5.1.16",
+        "valibot"
+      ]
+    },
+    "@atcute/oauth-keyset@0.1.2_typescript@6.0.3": {
+      "integrity": "sha512-2CUazWBWRjSEoYZDaLS4zEPgCOcr9LgnMhPr1pzr9I+DytRnoXmrdbRs4xBVg4iUdXtdzU48DsMaGi6bHXaFcg==",
+      "dependencies": [
+        "@atcute/oauth-crypto"
+      ]
+    },
+    "@atcute/oauth-types@1.0.1_typescript@6.0.3": {
+      "integrity": "sha512-9uFP/nK0PgPDsaNbLArzrCHvTZO1k04cSEX5jZ75W2Jh7Jxbh/CSTenSrad3CZXuX6y6hDquEtl6H/IqLtTmHw==",
+      "dependencies": [
+        "@atcute/identity",
+        "@atcute/lexicons",
+        "@atcute/oauth-keyset",
+        "valibot"
       ]
     },
     "@atcute/repo@1.0.2_@atcute+cbor@2.3.6__@atcute+cid@2.4.2_@atcute+cid@2.4.2_@atcute+lexicons@2.0.3": {
@@ -393,6 +465,10 @@
       "integrity": "sha512-bzlKTyNJ7+LdGIIwy8ijFpIqEQIvafahV7eYykJ8Cvh42EdJeODoJ6gUJXpQJvej1BddH8OqTXZNE/KfbWAu8Q==",
       "bin": true
     },
+    "nanoid@5.1.16": {
+      "integrity": "sha512-kVrnsrJqMR8+oLJnGEmSWw9BivK5mt7H3FZatVRjrc5wGqFYuBxX1yG7+A7Gi5AefkX6t/oCkizcQgpu0cY1dQ==",
+      "bin": true
+    },
     "picocolors@1.1.1": {
       "integrity": "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="
     },
@@ -402,7 +478,7 @@
     "postcss@8.5.22": {
       "integrity": "sha512-KBDEIpLrvpv16pp3K0Fw+UCoZfopFjjgeB+0tA/aaThfEE74kKDLrgg603YvOWJyg3+WYtyq3xYsQWsIyZlPqQ==",
       "dependencies": [
-        "nanoid",
+        "nanoid@3.3.16",
         "picocolors",
         "source-map-js"
       ]
@@ -482,7 +558,12 @@
     ],
     "packageJson": {
       "dependencies": [
+        "npm:@atcute/bluesky-richtext-builder@^4.0.1",
+        "npm:@atcute/bluesky-richtext-parser@^2.1.2",
+        "npm:@atcute/identity-resolver@^2.0.1",
         "npm:@atcute/lex-cli@^3.2.1",
+        "npm:@atcute/lexicons@^2.0.3",
+        "npm:@atcute/oauth-browser-client@^4.0.1",
         "npm:typescript@~6.0.2",
         "npm:vite@^8.1.1"
       ]
