@@ -95,7 +95,7 @@ async function loadReactions(
 
 async function fetchAllowedBases(authorDid: string): Promise<string[]> {
 	const atUri = `at://${authorDid}/${SERVERS_COLLECTION}/${SERVERS_RKEY}`;
-	if (!isResourceUri(atUri)) return null;
+	if (!isResourceUri(atUri)) return [];
 	const res = await slingshot.call(BlueMicrocosmRepoGetRecordByUri, {
 		params: { at_uri: atUri },
 	});
