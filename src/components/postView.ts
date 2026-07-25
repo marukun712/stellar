@@ -1,14 +1,7 @@
-import { AppBskyFeedGetPosts, AppBskyFeedPost } from "@atcute/bluesky";
-import { Client, ok, simpleFetchHandler } from "@atcute/client";
 import { parseCanonicalResourceUri } from "@atcute/lexicons/syntax";
 import * as v from "@atcute/lexicons/validations";
 import type { OAuthUserAgent } from "@atcute/oauth-browser-client";
-import { PostCard } from "./postCard.ts";
 import { ServerSettings } from "./serverSettings.ts";
-
-const publicClient = new Client({
-	handler: simpleFetchHandler({ service: "https://public.api.bsky.app" }),
-});
 
 export class PostView extends HTMLElement {
 	agent?: OAuthUserAgent;
@@ -36,10 +29,9 @@ export class PostView extends HTMLElement {
 		button.textContent = "Fetch";
 
 		const error = document.createElement("p");
-		const result = document.createElement("div");
 
 		form.append(label, button);
-		article.append(h1, form, error, result);
+		article.append(h1, form, error);
 
 		const settings = new ServerSettings();
 		settings.agent = this.agent;
@@ -47,33 +39,14 @@ export class PostView extends HTMLElement {
 		main.append(article, settings);
 		this.append(main);
 
-		form.addEventListener("submit", async (e) => {
+		form.addEventListener("submit", (e) => {
 			e.preventDefault();
-			button.setAttribute("aria-busy", "true");
-			error.textContent = "";
-			result.replaceChildren();
-
 			try {
 				parseCanonicalResourceUri(input.value.trim());
 				const uri = v.parse(v.resourceUriString(), input.value.trim());
-
-				const { posts } = await ok(
-					publicClient.call(AppBskyFeedGetPosts, {
-						params: { uris: [uri] },
-					}),
-				);
-				if (!posts.length) throw new Error("Post not found.");
-
-				const postView = posts[0];
-				const record = v.parse(AppBskyFeedPost.mainSchema, postView.record);
-
-				const card = new PostCard();
-				card.post = { uri: postView.uri, author: postView.author, record };
-				result.append(card);
+				location.href = `post.html?uri=${encodeURIComponent(uri)}`;
 			} catch (err) {
 				error.textContent = String(err);
-			} finally {
-				button.removeAttribute("aria-busy");
 			}
 		});
 	}

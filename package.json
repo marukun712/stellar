@@ -15,6 +15,7 @@
 		"@atcute/identity-resolver": "^2.0.1",
 		"@atcute/lex-cli": "^3.2.1",
 		"@atcute/lexicons": "^2.0.3",
+		"@atcute/microcosm": "^2.0.2",
 		"@atcute/oauth-browser-client": "^4.0.1"
 	},
 	"devDependencies": {

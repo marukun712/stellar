@@ -9,6 +9,14 @@ const SERVER_PORT = 5173;
 export default defineConfig({
 	base: "/stellar/",
 	server: { host: SERVER_HOST, port: SERVER_PORT },
+	build: {
+		rollupOptions: {
+			input: {
+				main: "index.html",
+				post: "post.html",
+			},
+		},
+	},
 	plugins: [
 		{
 			name: "oauth-envs",

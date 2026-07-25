@@ -1,11 +1,12 @@
-export interface PostView {
-	uri: string;
-	author: { displayName?: string; handle: string; avatar?: string };
-	record: { text: string; createdAt: string };
-}
+import type { AppBskyFeedDefs, AppBskyFeedPost } from "@atcute/bluesky";
+import type { OAuthUserAgent } from "@atcute/oauth-browser-client";
+import { ReactionDisplay } from "./reactionDisplay.ts";
+import { ReactionPicker } from "./reactionPicker.ts";
 
 export class PostCard extends HTMLElement {
-	set post(value: PostView) {
+	agent?: OAuthUserAgent;
+
+	set post(value: AppBskyFeedDefs.PostView) {
 		this.replaceChildren();
 
 		const article = document.createElement("article");
@@ -18,7 +19,7 @@ export class PostCard extends HTMLElement {
 			img.src = value.author.avatar;
 			img.alt = value.author.handle;
 			img.style.cssText =
-				"width:3rem;height:3rem;border-radius:50%;object-fit:cover;flex-shrink:0";
+				"width:3rem;height:3rem;border-radius:50%;object-fit:cover;";
 			header.append(img);
 		}
 
@@ -31,15 +32,34 @@ export class PostCard extends HTMLElement {
 		header.append(hgroup);
 		article.append(header);
 
+		const record = value.record as AppBskyFeedPost.Main;
+
 		const body = document.createElement("p");
-		body.textContent = value.record.text;
+		body.textContent = record.text;
 		article.append(body);
 
+		const display = new ReactionDisplay();
+		display.postUri = value.uri;
+		display.authorDid = value.author.did;
+		article.append(display);
+
 		const footer = document.createElement("footer");
+		footer.style.cssText =
+			"display:flex;align-items:center;justify-content:space-between";
+
 		const time = document.createElement("time");
-		time.dateTime = value.record.createdAt;
-		time.textContent = new Date(value.record.createdAt).toLocaleString();
+		time.dateTime = record.createdAt;
+		time.textContent = new Date(record.createdAt).toLocaleString();
 		footer.append(time);
+
+		if (this.agent) {
+			const picker = new ReactionPicker();
+			picker.agent = this.agent;
+			picker.postUri = value.uri;
+			picker.postCid = value.cid;
+			footer.append(picker);
+		}
+
 		article.append(footer);
 
 		this.append(article);
