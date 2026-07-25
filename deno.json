@@ -1,0 +1,10 @@
+{
+	"tasks": {
+		"gen-list": "deno run --allow-read --allow-write main.ts",
+		"check": "deno check && deno run -A npm:@biomejs/biome check --write ./",
+		"check:unsafe": "deno check && deno run -A npm:@biomejs/biome check --write --unsafe ./"
+	},
+	"imports": {
+		"@std/path": "jsr:@std/path@^1.1.6"
+	}
+}
