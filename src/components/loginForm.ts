@@ -1,13 +1,13 @@
 import { isActorIdentifier } from "@atcute/lexicons/syntax";
 import { createAuthorizationUrl } from "@atcute/oauth-browser-client";
 
-class LoginForm extends HTMLElement {
+export class LoginForm extends HTMLElement {
 	connectedCallback() {
 		const main = document.createElement("main");
 		const article = document.createElement("article");
 
 		const h1 = document.createElement("h1");
-		h1.textContent = "stellar";
+		h1.textContent = "Stellar";
 
 		const form = document.createElement("form");
 

@@ -9,8 +9,9 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@atcute/bluesky-richtext-builder": "^4.0.1",
-		"@atcute/bluesky-richtext-parser": "^2.1.2",
+		"@atcute/atproto": "^4.0.3",
+		"@atcute/bluesky": "^4.0.15",
+		"@atcute/client": "^5.1.1",
 		"@atcute/identity-resolver": "^2.0.1",
 		"@atcute/lex-cli": "^3.2.1",
 		"@atcute/lexicons": "^2.0.3",

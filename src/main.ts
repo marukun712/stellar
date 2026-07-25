@@ -8,10 +8,12 @@ import {
 import {
 	configureOAuth,
 	finalizeAuthorization,
+	getSession,
 	listStoredSessions,
+	OAuthUserAgent,
 } from "@atcute/oauth-browser-client";
-import "./components/login-form.ts";
-import "./components/post-view.ts";
+import { LoginForm } from "./components/loginForm.ts";
+import { PostView } from "./components/postView.ts";
 
 configureOAuth({
 	metadata: {
@@ -38,17 +40,25 @@ async function init(app: HTMLElement) {
 	if (location.hash.includes("state=")) {
 		const params = new URLSearchParams(location.hash.slice(1));
 		history.replaceState(null, "", location.pathname + location.search);
-		await finalizeAuthorization(params);
-		app.replaceChildren(document.createElement("post-view"));
+		const { session } = await finalizeAuthorization(params);
+		showPostView(app, new OAuthUserAgent(session));
 		return;
 	}
 
-	if (listStoredSessions().length > 0) {
-		app.replaceChildren(document.createElement("post-view"));
+	const [did] = listStoredSessions();
+	if (did) {
+		const session = await getSession(did, { allowStale: true });
+		showPostView(app, new OAuthUserAgent(session));
 		return;
 	}
 
-	app.replaceChildren(document.createElement("login-form"));
+	app.replaceChildren(new LoginForm());
+}
+
+function showPostView(app: HTMLElement, agent: OAuthUserAgent) {
+	const el = new PostView();
+	el.agent = agent;
+	app.replaceChildren(el);
 }
 
 init(app).catch((err) => {

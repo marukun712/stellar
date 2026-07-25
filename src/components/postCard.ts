@@ -4,7 +4,7 @@ export interface PostView {
 	record: { text: string; createdAt: string };
 }
 
-class PostCard extends HTMLElement {
+export class PostCard extends HTMLElement {
 	set post(value: PostView) {
 		this.replaceChildren();
 
