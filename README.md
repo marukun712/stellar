@@ -34,6 +34,24 @@ Stellarは、Blueskyの投稿に対して簡易的な絵文字リアクション
 
 ---
 
+## 仕様の構成
+
+Stellar は以下の3つの要素で成り立っています。
+
+### 1. Lexicon
+
+ATProtocol のレコード仕様です。`blue.maril.stellar.reaction` がリアクション本体、`blue.maril.stellar.servers` が投稿者の許可サーバー一覧を表します。
+
+### 2. 絵文字サーバー
+
+絵文字の画像をホスティングするサーバーです。絵文字パックは個人の PDS で所有するものではなく、複数人で共同運用されるものです。そのため、共同管理しやすいシンプルな HTTP ベースのサーバーとして ATProtocol 外で定義しています。また ATProtocol にはモデレーション機構が豊富に備わっていますが、絵文字リアクションにそのコストをかけるのは過剰であり、この点でもシンプルな HTTP ベースの構成が適切と判断しました。
+
+### 3. reaction-display
+
+リアクションを表示する Web Component です。投稿者が `blue.maril.stellar.servers` で許可したサーバーの絵文字だけを表示します。
+
+---
+
 ## Lexicon 仕様
 
 ### `blue.maril.stellar.reaction`
