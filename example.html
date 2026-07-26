@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>reaction-display</title>
+  <script type="module" src="https://marukun712.github.io/stellar/reaction-display.iife.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 640px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    hr {
+      margin: 2rem 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>stellar-reaction-display</h1>
+  <p>ATProtocol 上の投稿に付けられた絵文字リアクションを表示する Web Component です。</p>
+
+  <hr />
+
+  <h2>Example</h2>
+  <p>下のリアクションは実際のデータを取得して表示しています。</p>
+  <reaction-display
+    post-uri="at://did:plc:hbpzfim6uqz522avxupaud5y/app.bsky.feed.post/3mrhasjoj522r"></reaction-display>
+
+  <hr />
+
+  <h2>Usage</h2>
+
+  <h3>1. スクリプトを読み込む</h3>
+  &lt;script src="https://marukun712.github.io/stellar/reaction-display.iife.js"&gt;&lt;/script&gt;
+
+  <h3>2. タグを配置する</h3>
+  &lt;reaction-display
+  post-uri="at://did:plc:xxx/app.bsky.feed.post/yyy"
+  &gt;&lt;/reaction-display&gt;
+
+  <h3>Attributes</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>属性</th>
+        <th>説明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>post-uri</code></td>
+        <td>リアクションを取得する投稿の AT URI</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>

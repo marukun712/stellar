@@ -14,6 +14,7 @@ export default defineConfig({
 			input: {
 				main: "index.html",
 				post: "post.html",
+				example: "example.html",
 			},
 		},
 	},

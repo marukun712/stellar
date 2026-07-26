@@ -39,8 +39,7 @@ export class PostCard extends HTMLElement {
 		article.append(body);
 
 		const display = new ReactionDisplay();
-		display.postUri = value.uri;
-		display.authorDid = value.author.did;
+		display.setAttribute("post-uri", value.uri);
 		article.append(display);
 
 		const footer = document.createElement("footer");

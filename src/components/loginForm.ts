@@ -24,11 +24,21 @@ export class LoginForm extends HTMLElement {
 		button.type = "submit";
 		button.textContent = "Sign in";
 
+		const guide = document.createElement("article");
+		const span = document.createElement("span");
+		const link = document.createElement("a");
+		link.href = "./example.html";
+		link.textContent = "こちらから";
+		span.append(link);
+		guide.textContent = "リアクション表示コンポーネントの導入は";
+		guide.append(span);
+
 		const error = document.createElement("p");
 
 		form.append(label, button);
 		article.append(h1, form, error);
 		main.append(article);
+		main.append(guide);
 		this.append(main);
 
 		form.addEventListener("submit", async (e) => {

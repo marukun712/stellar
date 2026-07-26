@@ -28,6 +28,15 @@ export class PostView extends HTMLElement {
 		button.type = "submit";
 		button.textContent = "Fetch";
 
+		const guide = document.createElement("article");
+		const span = document.createElement("span");
+		const link = document.createElement("a");
+		link.href = "./example.html";
+		link.textContent = "こちらから";
+		span.append(link);
+		guide.textContent = "リアクション表示コンポーネントの導入は";
+		guide.append(span);
+
 		const error = document.createElement("p");
 
 		form.append(label, button);
@@ -37,6 +46,7 @@ export class PostView extends HTMLElement {
 		settings.agent = this.agent;
 
 		main.append(article, settings);
+		main.append(guide);
 		this.append(main);
 
 		form.addEventListener("submit", (e) => {

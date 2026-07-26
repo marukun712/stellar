@@ -1,5 +1,5 @@
 import { Client, simpleFetchHandler } from "@atcute/client";
-import { isResourceUri } from "@atcute/lexicons";
+import { isResourceUri, parseResourceUri } from "@atcute/lexicons";
 import * as v from "@atcute/lexicons/validations";
 import {
 	BlueMicrocosmLinksGetBacklinks,
@@ -26,12 +26,25 @@ const slingshot = new Client({
 type ReactionGroup = { emojiUrl: string; count: number };
 
 export class ReactionDisplay extends HTMLElement {
-	postUri?: string;
-	authorDid?: string;
+	static observedAttributes = ["post-uri"];
 
-	async connectedCallback() {
-		const { postUri, authorDid } = this;
-		if (!postUri || !authorDid) return;
+	get postUri() {
+		return this.getAttribute("post-uri") ?? undefined;
+	}
+
+	connectedCallback() {
+		this.load();
+	}
+
+	attributeChangedCallback() {
+		if (this.isConnected) this.load();
+	}
+
+	async load() {
+		const { postUri } = this;
+		if (!postUri || !isResourceUri(postUri)) return;
+
+		const { repo: authorDid } = parseResourceUri(postUri);
 
 		try {
 			const groups = await loadReactions(postUri, authorDid);
@@ -47,6 +60,7 @@ async function loadReactions(
 	authorDid: string,
 ): Promise<ReactionGroup[]> {
 	if (!isResourceUri(postUri)) return [];
+
 	const backlinksRes = await constellation.call(
 		BlueMicrocosmLinksGetBacklinks,
 		{
@@ -114,7 +128,7 @@ function renderGroups(el: HTMLElement, groups: ReactionGroup[]) {
 	for (const { emojiUrl, count } of groups) {
 		const chip = document.createElement("small");
 		chip.style.cssText =
-			"display:inline-flex;align-items:center;gap:0.25rem;border:1px solid var(--pico-muted-border-color);border-radius:0.25rem;padding:0.125rem 0.375rem";
+			"display:inline-flex;align-items:center;gap:0.25rem;border:1px solid #ccc;border-radius:0.25rem;padding:0.125rem 0.375rem";
 
 		const img = document.createElement("img");
 		img.src = emojiUrl;
