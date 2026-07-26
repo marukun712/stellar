@@ -10,6 +10,30 @@ Stellarは、Blueskyの投稿に対して簡易的な絵文字リアクション
 
 ---
 
+## reaction-display Web Component
+
+リアクションを表示する Web Component を提供しています。
+
+### 導入
+
+```html
+<script src="https://marukun712.github.io/stellar/reaction-display.iife.js"></script>
+```
+
+### 使い方
+
+```html
+<reaction-display
+  post-uri="at://did:plc:xxx/app.bsky.feed.post/yyy"
+></reaction-display>
+```
+
+| 属性 | 説明 |
+| --- | --- |
+| `post-uri` | リアクションを取得する投稿の AT URI |
+
+---
+
 ## Lexicon 仕様
 
 ### `blue.maril.stellar.reaction`

@@ -28,39 +28,33 @@ type ReactionGroup = { emojiUrl: string; count: number };
 export class ReactionDisplay extends HTMLElement {
 	static observedAttributes = ["post-uri"];
 
-	private _scheduled = false;
+	private _loadedUri: string | undefined;
 
 	get postUri() {
 		return this.getAttribute("post-uri") ?? undefined;
 	}
 
 	connectedCallback() {
-		this.scheduleLoad();
+		this.load();
 	}
 
 	attributeChangedCallback() {
-		if (this.isConnected) this.scheduleLoad();
-	}
-
-	private scheduleLoad() {
-		if (this._scheduled) return;
-		this._scheduled = true;
-		queueMicrotask(() => {
-			this._scheduled = false;
-			this.load();
-		});
+		if (this.isConnected) this.load();
 	}
 
 	async load() {
 		const { postUri } = this;
-		if (!postUri || !isResourceUri(postUri)) return;
+		if (!postUri || !isResourceUri(postUri) || postUri === this._loadedUri)
+			return;
 
+		this._loadedUri = postUri;
 		const { repo: authorDid } = parseResourceUri(postUri);
 
 		try {
 			const groups = await loadReactions(postUri, authorDid);
 			renderGroups(this, groups);
 		} catch (e) {
+			this._loadedUri = undefined;
 			console.log(e);
 		}
 	}
