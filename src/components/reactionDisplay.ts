@@ -28,16 +28,27 @@ type ReactionGroup = { emojiUrl: string; count: number };
 export class ReactionDisplay extends HTMLElement {
 	static observedAttributes = ["post-uri"];
 
+	private _scheduled = false;
+
 	get postUri() {
 		return this.getAttribute("post-uri") ?? undefined;
 	}
 
 	connectedCallback() {
-		this.load();
+		this.scheduleLoad();
 	}
 
 	attributeChangedCallback() {
-		if (this.isConnected) this.load();
+		if (this.isConnected) this.scheduleLoad();
+	}
+
+	private scheduleLoad() {
+		if (this._scheduled) return;
+		this._scheduled = true;
+		queueMicrotask(() => {
+			this._scheduled = false;
+			this.load();
+		});
 	}
 
 	async load() {

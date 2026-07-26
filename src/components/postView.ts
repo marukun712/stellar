@@ -45,8 +45,7 @@ export class PostView extends HTMLElement {
 		const settings = new ServerSettings();
 		settings.agent = this.agent;
 
-		main.append(article, settings);
-		main.append(guide);
+		main.append(article, settings, guide);
 		this.append(main);
 
 		form.addEventListener("submit", (e) => {

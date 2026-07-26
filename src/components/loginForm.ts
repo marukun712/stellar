@@ -37,8 +37,7 @@ export class LoginForm extends HTMLElement {
 
 		form.append(label, button);
 		article.append(h1, form, error);
-		main.append(article);
-		main.append(guide);
+		main.append(article, guide);
 		this.append(main);
 
 		form.addEventListener("submit", async (e) => {
